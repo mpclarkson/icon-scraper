@@ -6,6 +6,11 @@ Overview
 
 This library returns an array of `apple-touch-icon` and the `favicon` for a given url, sorted by width.
 
+Requirements
+------------
+
+PHP 5.4+
+
 
 Composer
 ---------
