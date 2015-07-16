@@ -30,7 +30,7 @@ Usage
     foreach($icons as $icon) {
         $icon->getType(); //Returns favicon or apple-touch-icon
         $icon->getHref(); //Returns a url
-        $icon->getSize(); //Returns an array of integers (or empty for favicons)
+        $icon->getSize(); //Returns an array of integers, or empty for favicons
         $icon->getWidth(); //Integer or null
         $icon->getHeight(); //Integer or null
     }
