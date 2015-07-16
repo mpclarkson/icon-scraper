@@ -44,7 +44,7 @@ class Scraper
         if( !isset($url['host']) ) {
             return false;
         }
-        
+
         $return .= $url['host'];
 
         // Port
@@ -58,7 +58,7 @@ class Scraper
         }
         $return .= '/';
 
-        return $return;    
+        return $return;
     }
 
     public function info($url)
@@ -66,20 +66,20 @@ class Scraper
         if(empty($url) || $url === false) {
             return false;
         }
-        
+
         $max_loop = 5;
-        
+
         // Discover real status by following redirects. 
         $loop = true;
         while ($loop && $max_loop-- > 0) {
             $headers = $this->dataAccess->retrieveHeader($url);
             $exploded = explode(' ', $headers[0]);
-            
-            if( !isset($exploded[1]) ) { 
+
+            if( !isset($exploded[1]) ) {
                 return false;
             }
             list(,$status) = $exploded;
-            
+
             switch ($status) {
                 case '301':
                 case '302':
@@ -93,7 +93,7 @@ class Scraper
 
         return array('status' => $status, 'url' => $url);
     }
-    
+
     public function endRedirect($url) {
         $out = $this->info($url);
         return !empty($out['url']) ? $out['url'] : false;
@@ -113,9 +113,9 @@ class Scraper
 
         return $this->getIcons($url);
     }
-    
+
     private function getIcons($url) {
-        
+
         if(empty($url)) {
             return false;
         }
@@ -138,14 +138,16 @@ class Scraper
 
             foreach ($links as $link) {
 
-                if($attribute = $link->hasAttribute('rel') && $href = $link->getAttribute('href')) {
+                if($link->hasAttribute('rel') && $href = $link->getAttribute('href')) {
+
+                    $attribute = $link->getAttribute('rel');
 
                     // Make sure the href is an absolute URL.
                     if($href && filter_var($href, FILTER_VALIDATE_URL) === false ) {
-                        $href = $url . '/' . $href;
+                        $href = $url . '/' . $href; //Todo: Improve this
                     }
 
-                    $size = $link->hasAttribute('sizes') ? $link->hasAttribute('sizes') : null;
+                    $size = $link->hasAttribute('sizes') ? $link->getAttribute('sizes') : null;
 
                     switch(strtolower($attribute)) {
                         case Icon::APPLE_TOUCH:
