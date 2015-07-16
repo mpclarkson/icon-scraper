@@ -16,6 +16,9 @@ class Scraper
         $this->dataAccess = new DataAccess();
     }
 
+    /**
+     * @param string $url
+     */
     public static function baseUrl($url, $path = false)
     {
         $return = '';
@@ -41,7 +44,7 @@ class Scraper
         }
 
         // Hostname
-        if(!isset($url['host']) ) {
+        if (!isset($url['host'])) {
             return false;
         }
 
@@ -53,7 +56,7 @@ class Scraper
         }
 
         // Path
-        if( $path && isset($url['path']) ) {
+        if ($path && isset($url['path'])) {
             $return .= $url['path'];
         }
         $return .= '/';
@@ -63,7 +66,7 @@ class Scraper
 
     public function info($url)
     {
-        if(empty($url) || $url === false) {
+        if (empty($url) || $url === false) {
             return false;
         }
 
@@ -78,7 +81,7 @@ class Scraper
 
             $exploded = explode(' ', $headers[0]);
 
-            if(!array_key_exists(1, $exploded)) {
+            if (!array_key_exists(1, $exploded)) {
                 return false;
             }
 
@@ -98,6 +101,11 @@ class Scraper
         return array('status' => $status, 'url' => $url);
     }
 
+    /**
+     * @param false|string $url
+     *
+     * @return string
+     */
     public function endRedirect($url) {
         $out = $this->info($url);
         return !empty($out['url']) ? $out['url'] : false;
@@ -119,16 +127,19 @@ class Scraper
         return $this->getIcons($url);
     }
 
+    /**
+     * @param string $url
+     */
     private function getIcons($url) {
 
-        if(empty($url)) {
+        if (empty($url)) {
             return [];
         }
 
         $html = $this->dataAccess->retrieveUrl("{$url}/");
         preg_match('!<head.*?>.*</head>!ims', $html, $match);
 
-        if(empty($match) || count($match) == 0) {
+        if (empty($match) || count($match) == 0) {
             return [];
         }
 
@@ -143,30 +154,30 @@ class Scraper
 
             foreach ($links as $link) {
 
-                if($link->hasAttribute('rel') && $href = $link->getAttribute('href')) {
+                if ($link->hasAttribute('rel') && $href = $link->getAttribute('href')) {
 
                     $attribute = $link->getAttribute('rel');
 
                     // Make sure the href is an absolute URL.
-                    if($href && filter_var($href, FILTER_VALIDATE_URL) === false ) {
+                    if ($href && filter_var($href, FILTER_VALIDATE_URL) === false) {
                         $href = $url . '/' . $href; //Todo: Improve this
                     }
 
                     $size = $link->hasAttribute('sizes') ? $link->getAttribute('sizes') : [];
 
-                    switch(strtolower($attribute)) {
+                    switch (strtolower($attribute)) {
                         case Icon::APPLE_TOUCH:
                             $type = Icon::APPLE_TOUCH;
                             $size = !is_array($size) ? explode('x', $size) : $size;
                             break;
                         default:
-                            if(strpos($link->getAttribute('href'), 'icon') !== FALSE) {
+                            if (strpos($link->getAttribute('href'), 'icon') !== FALSE) {
                                 $type = Icon::FAVICON;
                                 $size = [];
                             }
                     };
 
-                    if(isset($type) && filter_var($href, FILTER_VALIDATE_URL)) {
+                    if (isset($type) && filter_var($href, FILTER_VALIDATE_URL)) {
                         $icons[] = new Icon($type, $href, $size);
                     }
                 }
@@ -174,12 +185,12 @@ class Scraper
         }
 
         //Sort the icons by width
-        usort($icons, function($a, $b)  {
+        usort($icons, function($a, $b) {
             return $a->getWidth() - $b->getWidth();
         });
 
         //If it is empty, try and get one from the root
-        if(empty($icons)) {
+        if (empty($icons)) {
             $icons = $this->getFavicon($url);
         }
 
@@ -195,11 +206,11 @@ class Scraper
         }
 
         // Make sure the favicon is an absolute URL.
-        if(isset($favicon) && filter_var($favicon, FILTER_VALIDATE_URL) === false ) {
+        if (isset($favicon) && filter_var($favicon, FILTER_VALIDATE_URL) === false) {
             $favicon = $url . '/' . $favicon;
         }
 
-        if(isset($favicon)) {
+        if (isset($favicon)) {
             return [
                 new Icon(Icon::FAVICON, $favicon, [])
             ];
