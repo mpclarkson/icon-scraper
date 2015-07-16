@@ -25,7 +25,6 @@ class ScraperTest extends \PHPUnit_Framework_TestCase {
         $this->assertEquals($url, $fav->getUrl());
     }
 
-
     /**
     * @covers Scraper::baseUrl
     * @uses Scraper
@@ -100,6 +99,7 @@ class ScraperTest extends \PHPUnit_Framework_TestCase {
         $url = 'http://domain.tld';
 
         $res = $fav->info($url);
+
         $this->assertEquals($url, $res['url']);
         $this->assertEquals('200', $res['status']);
     }
@@ -137,10 +137,11 @@ class ScraperTest extends \PHPUnit_Framework_TestCase {
         $this->assertEquals('302', $res['status']);
     }
 
-//    /**
-//    * @covers Scraper::get
-//    * @uses Scraper
-//    */
+//
+    /**
+    //    * @covers Scraper::get
+    //    * @uses Scraper
+    //    */
 //    public function testGetDefaultFavicon() {
 //        $url = 'http://domain.tld/';
 //        $fav = new Scraper(array('url' => $url));
@@ -152,16 +153,15 @@ class ScraperTest extends \PHPUnit_Framework_TestCase {
 //        $dataAccess->expects($this->any())->method('retrieveHeader')->will($this->returnValue(array(0 => 'HTTP/1.1 200 KO')));
 //        $dataAccess->expects($this->any())->method('retrieveUrl')->will($this->returnValue(file_get_contents($this->RESOURCE_FAV_ICO)));
 //
-//        $this->assertEquals(self::slash($url) . $this->DEFAULT_FAV_CHECK, $fav->get());
+//        $this->assertEquals(self::slash($url) . $this->DEFAULT_FAV_CHECK, $fav->get()[0]['href']);
 //    }
-
     /**
     * @covers Scraper::get
     * @uses Scraper
     */
     public function testGetFaviconEmptyUrl() {
     	$fav = new Scraper();
-    	$this->assertFalse($fav->get());
+    	$this->assertEmpty($fav->get());
     }
 
     /**
@@ -184,22 +184,6 @@ class ScraperTest extends \PHPUnit_Framework_TestCase {
     * @covers Scraper::get
     * @uses Scraper
     */
-    public function testGetFalsePositive() {
-    	$url = 'http://domain.tld';
-        $fav = new Scraper(array('url' => $url));
-
-        $dataAccess = $this->getMock('Mpclarkson\IconScraper\DataAccess', array('retrieveHeader', 'retrieveUrl'));
-        $fav->setDataAccess($dataAccess);
-        $dataAccess->expects($this->any())->method('retrieveHeader')->will($this->returnValue(array(0 => 'HTTP/1.1 200 OK')));
-        $dataAccess->expects($this->any())->method('retrieveUrl')->will($this->returnValue('<head><crap></crap></head>'));
-
-        $this->assertEmpty($fav->get());
-    }
-
-    /**
-    * @covers Scraper::get
-    * @uses Scraper
-    */
     public function testGetNoHtmlHeader() {
     	$url = 'http://domain.tld/original';
         $logo = 'default.ico';
@@ -208,11 +192,10 @@ class ScraperTest extends \PHPUnit_Framework_TestCase {
         $dataAccess = $this->getMock('Mpclarkson\IconScraper\DataAccess', array('retrieveHeader', 'retrieveUrl'));
         $fav->setDataAccess($dataAccess);
 
-        // MOCK
         $dataAccess->expects($this->any())->method('retrieveHeader')->will($this->returnValue(array(0 => 'HTTP/1.1 404 KO')));
         $dataAccess->expects($this->any())->method('retrieveUrl')->will($this->returnValue('<crap></crap>'));
 
-        $this->assertFalse($fav->get());
+        $this->assertEmpty($fav->get());
     }
 
 

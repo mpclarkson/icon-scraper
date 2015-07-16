@@ -13,7 +13,7 @@ Composer
 Use [Composer](https://getcomposer.org) by adding the following lines in your `composer.json`:
 
     "require": {
-        "mpclarkson/icon-Scraper": "dev-master"
+        "mpclarkson/icon-scraper": "dev-master"
     },
 
 Usage
@@ -35,7 +35,7 @@ Usage
         $icon->getHeight(); //Integer or null
     }
 
-    die($icons)
+    //$icons looks like this:
 
     Array
     (
@@ -156,7 +156,7 @@ Credits
 This library is significant fork of this library by [Arthur Hoaro](https://github.com/ArthurHoaro/favicon). Key changes include:
 
   * Returns an array of icons, rather than just the favicon
-  * Icons returned as Icon objects which include the following properties: type, href and type
+  * Icons returned as Icon objects which include the following properties: type, href and size, and getters for width and height
   * No caching
   * PSR-4
 

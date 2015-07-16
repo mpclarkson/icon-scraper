@@ -72,6 +72,7 @@ class Scraper
         // Discover real status by following redirects. 
         $loop = true;
         while ($loop && $max_loop-- > 0) {
+
             $headers = $this->dataAccess->retrieveHeader($url);
 
             $exploded = explode(' ', $headers[0]);
@@ -88,6 +89,7 @@ class Scraper
                     $url = $headers['Location'];
                     break;
                 default:
+                    $loop = false;
                     break;
             }
         }
