@@ -5,11 +5,11 @@ namespace Mpclarkson\IconScraper;
 use Mpclarkson\IconScraper\Scraper;
 
 class FaviconTest extends \PHPUnit_Framework_TestCase {
-    
+
     private $DEFAULT_FAV_CHECK = 'favicon.ico';
     private $TEST_LOGO_NAME = 'default.ico';
     private $RESOURCE_FAV_ICO;
-    
+
     public function setUp() {
         $this->RESOURCE_FAV_ICO = __DIR__ . '/default.ico';
     }
@@ -25,7 +25,7 @@ class FaviconTest extends \PHPUnit_Framework_TestCase {
         $this->assertEquals($url, $fav->getUrl());
     }
 
-    
+
     /**
     * @covers Scraper::baseUrl
     * @uses Scraper
@@ -33,20 +33,20 @@ class FaviconTest extends \PHPUnit_Framework_TestCase {
     public function testBaseFalseUrl() {
 
         $fav = new Scraper();
-    	
+
     	$notAnUrl = 'fgkljkdf';
     	$notPrefixedUrl = 'domain.tld';
     	$noHostUrl = 'http://';
     	$invalidPrefixUrl = 'ftp://domain.tld';
     	$emptyUrl = '';
-    	
+
     	$this->assertFalse($fav->baseUrl($notAnUrl));
     	$this->assertFalse($fav->baseUrl($notPrefixedUrl));
     	$this->assertFalse($fav->baseUrl($noHostUrl));
     	$this->assertFalse($fav->baseUrl($invalidPrefixUrl));
     	$this->assertFalse($fav->baseUrl($emptyUrl));
     }
-    
+
     /**
     * @covers Scraper::baseUrl
     * @uses Scraper
@@ -54,7 +54,7 @@ class FaviconTest extends \PHPUnit_Framework_TestCase {
     public function testBaseUrlValid() {
 
         $fav = new Scraper();
-    	
+
     	$simpleUrl = 'http://domain.tld';
     	$simpleHttpsUrl = 'https://domain.tld';
     	$simpleUrlWithTraillingSlash = 'http://domain.tld/';
@@ -63,7 +63,7 @@ class FaviconTest extends \PHPUnit_Framework_TestCase {
     	$userPasswordUrl = 'http://user:password@domain.tld';
     	$urlWithUnusedInfo = 'http://domain.tld/index.php?foo=bar&bar=foo#foobar';
     	$urlWithPath = 'http://domain.tld/my/super/path';
-    	
+
     	$this->assertEquals(self::slash($simpleUrl), $fav->baseUrl($simpleUrl));
     	$this->assertEquals(self::slash($simpleHttpsUrl), $fav->baseUrl($simpleHttpsUrl));
     	$this->assertEquals(self::slash($simpleUrlWithTraillingSlash), $fav->baseUrl($simpleUrlWithTraillingSlash));
@@ -74,7 +74,7 @@ class FaviconTest extends \PHPUnit_Framework_TestCase {
     	$this->assertEquals(self::slash($simpleUrl), $fav->baseUrl($urlWithPath, false));
     	$this->assertEquals(self::slash($urlWithPath), $fav->baseUrl($urlWithPath, true));
     }
-    
+
     /**
     * @covers Scraper::info
     * @uses Scraper
@@ -83,7 +83,7 @@ class FaviconTest extends \PHPUnit_Framework_TestCase {
         $fav = new Scraper();
         $this->assertFalse($fav->info(''));
     }
-    
+
     /**
     * @covers Scraper::info
     * @uses Scraper
@@ -96,14 +96,14 @@ class FaviconTest extends \PHPUnit_Framework_TestCase {
         );
         $dataAccess->expects($this->once())->method('retrieveHeader')->will($this->returnValue($header));
         $fav->setDataAccess($dataAccess);
-        
+
         $url = 'http://domain.tld';
-        
+
         $res = $fav->info($url);
         $this->assertEquals($url, $res['url']);
         $this->assertEquals('200', $res['status']);
     }
-    
+
     /**
     * @covers Scraper::info
     * @uses Scraper
@@ -112,7 +112,7 @@ class FaviconTest extends \PHPUnit_Framework_TestCase {
         $dataAccess = $this->getMock('Mpclarkson\IconScraper\DataAccess');
         $fav = new Scraper();
         $fav->setDataAccess($dataAccess);
-        
+
         // Data
         $urlRedirect = 'http://redirected.domain.tld';
         $url = 'http://domain.tld';
@@ -121,22 +121,22 @@ class FaviconTest extends \PHPUnit_Framework_TestCase {
             'Location' => $urlRedirect,
         );
         $headerOk = array(0 => 'HTTP/1.1 200 OK');
-        
+
         // Simple redirect
         $dataAccess->expects($this->at(0))->method('retrieveHeader')->will($this->returnValue($headerRedirect));
         $dataAccess->expects($this->at(1))->method('retrieveHeader')->will($this->returnValue($headerOk));
-        
+
         $res = $fav->info($url);
         $this->assertEquals($urlRedirect, $res['url']);
         $this->assertEquals('200', $res['status']);
-        
+
         // Redirect loop
         $dataAccess->expects($this->exactly(5))->method('retrieveHeader')->will($this->returnValue($headerRedirect));
         $res = $fav->info($url);
         $this->assertEquals($urlRedirect, $res['url']);
         $this->assertEquals('302', $res['status']);
     }
-    
+
 //    /**
 //    * @covers Scraper::get
 //    * @uses Scraper
@@ -163,7 +163,7 @@ class FaviconTest extends \PHPUnit_Framework_TestCase {
     	$fav = new Scraper();
     	$this->assertFalse($fav->get());
     }
-    
+
     /**
     * @covers Scraper::get
     * @uses Scraper
@@ -176,10 +176,10 @@ class FaviconTest extends \PHPUnit_Framework_TestCase {
         $fav->setDataAccess($dataAccess);
         $dataAccess->expects($this->any())->method('retrieveHeader')->will($this->returnValue(array(0 => 'HTTP/1.1 404 KO')));
         $dataAccess->expects($this->any())->method('retrieveUrl')->will($this->returnValue('<head><crap></crap></head>'));
-        
+
         $this->assertEmpty($fav->get());
     }
-    
+
     /**
     * @covers Scraper::get
     * @uses Scraper
@@ -192,10 +192,10 @@ class FaviconTest extends \PHPUnit_Framework_TestCase {
         $fav->setDataAccess($dataAccess);
         $dataAccess->expects($this->any())->method('retrieveHeader')->will($this->returnValue(array(0 => 'HTTP/1.1 200 OK')));
         $dataAccess->expects($this->any())->method('retrieveUrl')->will($this->returnValue('<head><crap></crap></head>'));
-        
+
         $this->assertEmpty($fav->get());
     }
-    
+
     /**
     * @covers Scraper::get
     * @uses Scraper
@@ -204,17 +204,17 @@ class FaviconTest extends \PHPUnit_Framework_TestCase {
     	$url = 'http://domain.tld/original';
         $logo = 'default.ico';
         $fav = new Scraper(array('url' => $url));
-        
+
         $dataAccess = $this->getMock('Mpclarkson\IconScraper\DataAccess', array('retrieveHeader', 'retrieveUrl'));
         $fav->setDataAccess($dataAccess);
-        
+
         // MOCK
         $dataAccess->expects($this->any())->method('retrieveHeader')->will($this->returnValue(array(0 => 'HTTP/1.1 404 KO')));
         $dataAccess->expects($this->any())->method('retrieveUrl')->will($this->returnValue('<crap></crap>'));
-        
+
         $this->assertFalse($fav->get());
     }
-    
+
 
     /**
      * Callback function for retrieveHeader in testGetExistingRootFavicon
@@ -225,13 +225,13 @@ class FaviconTest extends \PHPUnit_Framework_TestCase {
         $headerOk = array(0 => 'HTTP/1.1 200 OK');
         $headerKo = array(0 => 'HTTP/1.1 404 KO');
         $args = func_get_args();
-        
+
         if( strpos($args[0], $this->DEFAULT_FAV_CHECK) !== false ) {
             return $headerKo;
         }
         return $headerOk;
     }
-    
+
     /**
      * Callback function for contentExistingFav in testGetExistingRootFavicon
      * return valid header, or icon file content if url contain '.ico'.
@@ -241,13 +241,13 @@ class FaviconTest extends \PHPUnit_Framework_TestCase {
         $xml = '<head><link rel="icon" href="'. $this->TEST_LOGO_NAME .'" /></head>';
         $ico = file_get_contents($this->RESOURCE_FAV_ICO);
         $args = func_get_args();
-        
+
         if( strpos($args[0], '.ico') !== false ) {
             return $ico;
         }
         return $xml;
     }
-    
+
     /**
      * Callback function for retrieveHeader in testGetOriginalFavicon
      * If it checks default fav (favicon.ico), return 404
@@ -258,14 +258,14 @@ class FaviconTest extends \PHPUnit_Framework_TestCase {
         $headerOk = array(0 => 'HTTP/1.1 200 OK');
         $headerKo = array(0 => 'HTTP/1.1 404 KO');
         $args = func_get_args();
-        
+
         if( strpos($args[0], 'original') === false || strpos($args[0], $this->DEFAULT_FAV_CHECK) !== false ) {
             return $headerKo;
         }
-        
+
         return $headerOk;
     }
-    
+
     /**
      * Callback function for retrieveUrl in testGetOriginalFavicon
      * Return crap if it we're not in web sub directory
@@ -278,17 +278,17 @@ class FaviconTest extends \PHPUnit_Framework_TestCase {
         $xmlKo = '<head><crap></crap></head>';
         $ico = file_get_contents($this->RESOURCE_FAV_ICO);
         $args = func_get_args();
-        
+
         if( strpos($args[0], '.ico') !== false ) {
             return $ico;
         }
         if( strpos($args[0], 'original') === false ) {
             return $xmlKo;
         }
-        
+
         return $xmlOk;
     }
-    
+
     public static function slash($url) {
     	return $url . ($url[strlen($url) - 1] == '/' ? '' : '/');
     }

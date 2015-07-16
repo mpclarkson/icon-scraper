@@ -10,7 +10,7 @@ namespace Mpclarkson\IconScraper;
 
 class Icon
 {
-    const APPLE_TOUCH = 'apple-touch';
+    const APPLE_TOUCH = 'apple-touch-icon';
     const FAVICON = 'favicon';
 
     /**
@@ -24,11 +24,11 @@ class Icon
     private $href;
 
     /**
-     * @var string
+     * @var array
      */
     private $size;
 
-    public function __construct($type, $href, $size)
+    public function __construct($type, $href, array $size)
     {
         $this->type = $type;
         $this->href = $href;
@@ -50,4 +50,13 @@ class Icon
         return $this->size;
     }
 
+    public function getWidth()
+    {
+        return array_key_exists(0, $this->size) ? $this->size[0] : null;
+    }
+
+    public function getHeight()
+    {
+        return array_key_exists(1, $this->size) ? $this->size[1] : null;
+    }
 }

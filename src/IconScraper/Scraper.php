@@ -147,15 +147,17 @@ class Scraper
                         $href = $url . '/' . $href; //Todo: Improve this
                     }
 
-                    $size = $link->hasAttribute('sizes') ? $link->getAttribute('sizes') : null;
+                    $size = $link->hasAttribute('sizes') ? $link->getAttribute('sizes') : [];
 
                     switch(strtolower($attribute)) {
                         case Icon::APPLE_TOUCH:
                             $type = Icon::APPLE_TOUCH;
+                            $size = explode('x', $size);
                             break;
                         default:
                             if(strpos($link->getAttribute('href'), 'icon') !== FALSE) {
                                 $type = Icon::FAVICON;
+                                $size = [];
                             }
                     };
 
@@ -165,6 +167,11 @@ class Scraper
                 }
             }
         }
+
+        //Sort the icons by width
+        usort($icons, function($a, $b)  {
+            return $a->getWidth() - $b->getWidth();
+        });
 
         return $icons;
     }

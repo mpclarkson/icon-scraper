@@ -4,7 +4,7 @@ Get Apple Touch Icons and Favicon from a Website
 Overview
 --------
 
-This library returns an array of `apple-touch-icon` and the `favicon` for a given url.
+This library returns an array of `apple-touch-icon` and the `favicon` for a given url, sorted by width.
 
 
 Composer
@@ -30,10 +30,12 @@ Usage
     foreach($icons as $icon) {
         $icon->getType(); //Returns favicon or apple-touch-icon
         $icon->getHref(); //Returns a url
-        $icon->getSize(); //Returns a string for apple-touch icons only (eg 72x72)
+        $icon->getSize(); //Returns an array of integers (or empty for favicons)
+        $icon->getWidth(); //Integer or null
+        $icon->getHeight(); //Integer or null
     }
 
-    var_dum($icons)
+    die($icons)
 
     Array
     (
@@ -41,65 +43,102 @@ Usage
             (
                 [type:Mpclarkson\IconScraper\Icon:private] => favicon
                 [href:Mpclarkson\IconScraper\Icon:private] => http://d1nhhppd50p5r.cloudfront.net/favicon.ico?1433897130
-                [size:Mpclarkson\IconScraper\Icon:private] =>
+                [size:Mpclarkson\IconScraper\Icon:private] => Array
+                    (
+                    )
+
             )
 
         [1] => Mpclarkson\IconScraper\Icon Object
             (
                 [type:Mpclarkson\IconScraper\Icon:private] => apple-touch-icon
-                [href:Mpclarkson\IconScraper\Icon:private] => https://d1nhhppd50p5r.cloudfront.net/icon57.png?1433897130
-                [size:Mpclarkson\IconScraper\Icon:private] => 57x57
+                [href:Mpclarkson\IconScraper\Icon:private] => http://d1nhhppd50p5r.cloudfront.net/css/96113be.css?1433897130
+                [size:Mpclarkson\IconScraper\Icon:private] => Array
+                    (
+                    )
             )
 
         [2] => Mpclarkson\IconScraper\Icon Object
             (
                 [type:Mpclarkson\IconScraper\Icon:private] => apple-touch-icon
-                [href:Mpclarkson\IconScraper\Icon:private] => http://d1nhhppd50p5r.cloudfront.net/icon72.png?1433897130
-                [size:Mpclarkson\IconScraper\Icon:private] => 72x72
+                [href:Mpclarkson\IconScraper\Icon:private] => https://d1nhhppd50p5r.cloudfront.net/icon57.png?1433897130
+                [size:Mpclarkson\IconScraper\Icon:private] => Array
+                    (
+                        [0] => 57
+                        [1] => 57
+                    )
             )
 
         [3] => Mpclarkson\IconScraper\Icon Object
             (
                 [type:Mpclarkson\IconScraper\Icon:private] => apple-touch-icon
-                [href:Mpclarkson\IconScraper\Icon:private] => https://d1nhhppd50p5r.cloudfront.net/icon76.png?1433897130
-                [size:Mpclarkson\IconScraper\Icon:private] => 76x76
+                [href:Mpclarkson\IconScraper\Icon:private] => http://d1nhhppd50p5r.cloudfront.net/icon72.png?1433897130
+                [size:Mpclarkson\IconScraper\Icon:private] => Array
+                    (
+                        [0] => 72
+                        [1] => 72
+                    )
             )
 
         [4] => Mpclarkson\IconScraper\Icon Object
             (
                 [type:Mpclarkson\IconScraper\Icon:private] => apple-touch-icon
-                [href:Mpclarkson\IconScraper\Icon:private] => https://d1nhhppd50p5r.cloudfront.net/icon114.png?1433897130
-                [size:Mpclarkson\IconScraper\Icon:private] => 114x114
+                [href:Mpclarkson\IconScraper\Icon:private] => https://d1nhhppd50p5r.cloudfront.net/icon76.png?1433897130
+                [size:Mpclarkson\IconScraper\Icon:private] => Array
+                    (
+                        [0] => 76
+                        [1] => 76
+                    )
+
             )
 
         [5] => Mpclarkson\IconScraper\Icon Object
             (
                 [type:Mpclarkson\IconScraper\Icon:private] => apple-touch-icon
-                [href:Mpclarkson\IconScraper\Icon:private] => https://d1nhhppd50p5r.cloudfront.net/icon120.png?1433897130
-                [size:Mpclarkson\IconScraper\Icon:private] => 120x120
+                [href:Mpclarkson\IconScraper\Icon:private] => https://d1nhhppd50p5r.cloudfront.net/icon114.png?1433897130
+                [size:Mpclarkson\IconScraper\Icon:private] => Array
+                    (
+                        [0] => 114
+                        [1] => 114
+                    )
+
             )
 
         [6] => Mpclarkson\IconScraper\Icon Object
             (
                 [type:Mpclarkson\IconScraper\Icon:private] => apple-touch-icon
-                [href:Mpclarkson\IconScraper\Icon:private] => https://d1nhhppd50p5r.cloudfront.net/icon144.png?1433897130
-                [size:Mpclarkson\IconScraper\Icon:private] => 144x144
+                [href:Mpclarkson\IconScraper\Icon:private] => https://d1nhhppd50p5r.cloudfront.net/icon120.png?1433897130
+                [size:Mpclarkson\IconScraper\Icon:private] => Array
+                    (
+                        [0] => 120
+                        [1] => 120
+                    )
+
             )
 
         [7] => Mpclarkson\IconScraper\Icon Object
             (
                 [type:Mpclarkson\IconScraper\Icon:private] => apple-touch-icon
-                [href:Mpclarkson\IconScraper\Icon:private] => http://d1nhhppd50p5r.cloudfront.net/icon152.png?1433897130
-                [size:Mpclarkson\IconScraper\Icon:private] => 152x152
+                [href:Mpclarkson\IconScraper\Icon:private] => https://d1nhhppd50p5r.cloudfront.net/icon144.png?1433897130
+                [size:Mpclarkson\IconScraper\Icon:private] => Array
+                    (
+                        [0] => 144
+                        [1] => 144
+                    )
+
             )
 
         [8] => Mpclarkson\IconScraper\Icon Object
             (
                 [type:Mpclarkson\IconScraper\Icon:private] => apple-touch-icon
-                [href:Mpclarkson\IconScraper\Icon:private] => http://d1nhhppd50p5r.cloudfront.net/css/96113be.css?1433897130
-                [size:Mpclarkson\IconScraper\Icon:private] =>
-            )
+                [href:Mpclarkson\IconScraper\Icon:private] => http://d1nhhppd50p5r.cloudfront.net/icon152.png?1433897130
+                [size:Mpclarkson\IconScraper\Icon:private] => Array
+                    (
+                        [0] => 152
+                        [1] => 152
+                    )
 
+            )
     )
 
 ```
