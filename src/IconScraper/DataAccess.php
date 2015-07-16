@@ -9,22 +9,22 @@ namespace Mpclarkson\IconScraper;
  **/
 class DataAccess {
 
-	public function retrieveUrl($url) {
-	    $this->setContext();
-	    return @file_get_contents($url);
-	}
+    public function retrieveUrl($url) {
+        $this->setContext();
+        return @file_get_contents($url);
+    }
 	
-	public function retrieveHeader($url) {
-	    $this->setContext();
-		return @get_headers($url, TRUE);
-	}
+    public function retrieveHeader($url) {
+        $this->setContext();
+        return @get_headers($url, TRUE);
+    }
 	
     public function saveCache($file, $data) {
         file_put_contents($file, $data);
     }
     
     public function readCache($file) {
-    	return file_get_contents($file);
+        return file_get_contents($file);
     }
     
     private function setContext() {
