@@ -117,14 +117,14 @@ class Scraper
     private function getIcons($url) {
 
         if(empty($url)) {
-            return false;
+            return [];
         }
 
         $html = $this->dataAccess->retrieveUrl("{$url}/");
         preg_match('!<head.*?>.*</head>!ims', $html, $match);
 
         if(empty($match) || count($match) == 0) {
-            return false;
+            return [];
         }
 
         $head = $match[0];
@@ -173,7 +173,31 @@ class Scraper
             return $a->getWidth() - $b->getWidth();
         });
 
+        //If it is empty, try and get one from the root
+        if(empty($icons)) {
+            $icons = $this->getFavicon($url);
+        }
+
         return $icons;
+    }
+
+    private function getFavicon($url) {
+
+        // Try /favicon.ico first.
+        $info = $this->info("{$url}/favicon.ico");
+        if ($info['status'] == '200') {
+            $favicon = $info['url'];
+        }
+
+        // Make sure the favicon is an absolute URL.
+        if( isset($favicon) && filter_var($favicon, FILTER_VALIDATE_URL) === false ) {
+            $favicon = $url . '/' . $favicon;
+        }
+        if(isset($favicon)) {
+            return [new Icon(Icon::FAVICON, $favicon, [])];
+        }
+
+        return [];
     }
 
     /**
