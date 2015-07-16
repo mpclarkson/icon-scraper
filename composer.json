@@ -1,0 +1,35 @@
+{
+    "name": "mpclarkson/icon-scraper",
+    "type": "library",
+    "description": "PHP Library to get the apple-touch-icons and favicon from a website.",
+    "keywords": ["apple-touch-icon", "favicon", "icon", "finder", "Scraper"],
+    "homepage": "https://github.com/mpclarkson/icon-scraper",
+    "license": "Apache-2.0",
+    "authors": [
+        {
+            "name": "Chris Shiflett",
+            "homepage": "http://shiflett.org/"
+        },
+        {
+            "name": "Arthur Hoaro",
+            "homepage": "http://hoa.ro"
+        },
+        {
+            "name": "Matthew Clarkson",
+            "homepage": "http://hilenium.com"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/mpclarkson/icon-scraper/issues",
+        "sources": "https://github.com/mpclarkson/icon-scraper"
+    },
+    "require": {
+        "php": ">=5.3.3"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "3.7.*"
+    },
+    "autoload": {
+        "psr-4": { "Mpclarkson\\": "src/" }
+    }
+}
