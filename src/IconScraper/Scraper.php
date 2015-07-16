@@ -154,7 +154,7 @@ class Scraper
                     switch(strtolower($attribute)) {
                         case Icon::APPLE_TOUCH:
                             $type = Icon::APPLE_TOUCH;
-                            $size = is_array($size) ? explode('x', $size) : $size;
+                            $size = !is_array($size) ? explode('x', $size) : $size;
                             break;
                         default:
                             if(strpos($link->getAttribute('href'), 'icon') !== FALSE) {
