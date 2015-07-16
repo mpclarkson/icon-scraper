@@ -4,7 +4,7 @@ namespace Mpclarkson\IconScraper;
 
 use Mpclarkson\IconScraper\Scraper;
 
-class FaviconTest extends \PHPUnit_Framework_TestCase {
+class ScraperTest extends \PHPUnit_Framework_TestCase {
 
     private $DEFAULT_FAV_CHECK = 'favicon.ico';
     private $TEST_LOGO_NAME = 'default.ico';

@@ -41,7 +41,7 @@ class Scraper
         }
 
         // Hostname
-        if( !isset($url['host']) ) {
+        if(!isset($url['host']) ) {
             return false;
         }
 
@@ -73,11 +73,13 @@ class Scraper
         $loop = true;
         while ($loop && $max_loop-- > 0) {
             $headers = $this->dataAccess->retrieveHeader($url);
+
             $exploded = explode(' ', $headers[0]);
 
-            if( !isset($exploded[1]) ) {
+            if(!array_key_exists(1, $exploded)) {
                 return false;
             }
+
             list(,$status) = $exploded;
 
             switch ($status) {
@@ -86,7 +88,6 @@ class Scraper
                     $url = $headers['Location'];
                     break;
                 default:
-                    $loop = FALSE;
                     break;
             }
         }
@@ -104,6 +105,7 @@ class Scraper
      **/
     public function get($url = '')
     {
+
         // URLs passed to this method take precedence.
         if (!empty($url)) {
             $this->url = $url;
@@ -152,7 +154,7 @@ class Scraper
                     switch(strtolower($attribute)) {
                         case Icon::APPLE_TOUCH:
                             $type = Icon::APPLE_TOUCH;
-                            $size = explode('x', $size);
+                            $size = !is_array($size) ? explode('x', $size) : $size;
                             break;
                         default:
                             if(strpos($link->getAttribute('href'), 'icon') !== FALSE) {
@@ -161,7 +163,7 @@ class Scraper
                             }
                     };
 
-                    if(isset($type)) {
+                    if(isset($type) && filter_var($href, FILTER_VALIDATE_URL)) {
                         $icons[] = new Icon($type, $href, $size);
                     }
                 }
@@ -190,11 +192,14 @@ class Scraper
         }
 
         // Make sure the favicon is an absolute URL.
-        if( isset($favicon) && filter_var($favicon, FILTER_VALIDATE_URL) === false ) {
+        if(isset($favicon) && filter_var($favicon, FILTER_VALIDATE_URL) === false ) {
             $favicon = $url . '/' . $favicon;
         }
+
         if(isset($favicon)) {
-            return [new Icon(Icon::FAVICON, $favicon, [])];
+            return [
+                new Icon(Icon::FAVICON, $favicon, [])
+            ];
         }
 
         return [];
