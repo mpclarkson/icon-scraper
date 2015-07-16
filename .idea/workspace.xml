@@ -25,8 +25,8 @@
       <file leaf-file-name="Scraper.php" pinned="false" current-in-tab="false">
         <entry file="file://$USER_HOME$/Sites/mpclarkson-icon-scraper/src/IconScraper/Scraper.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-5.1960783">
-              <caret line="89" column="26" selection-start-line="89" selection-start-column="26" selection-end-line="89" selection-end-column="26" />
+            <state vertical-scroll-proportion="-6.6666665">
+              <caret line="97" column="34" selection-start-line="97" selection-start-column="34" selection-end-line="97" selection-end-column="34" />
               <folding />
             </state>
           </provider>
@@ -45,8 +45,8 @@
       <file leaf-file-name="README.md" pinned="false" current-in-tab="true">
         <entry file="file://$USER_HOME$/Sites/mpclarkson-icon-scraper/README.md">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.24793388">
-              <caret line="8" column="21" selection-start-line="8" selection-start-column="21" selection-end-line="8" selection-end-column="21" />
+            <state vertical-scroll-proportion="0.15495868">
+              <caret line="5" column="0" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -65,8 +65,8 @@
       <file leaf-file-name="DataAccess.php" pinned="false" current-in-tab="false">
         <entry file="file://$USER_HOME$/Sites/mpclarkson-icon-scraper/src/IconScraper/DataAccess.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-6.25">
-              <caret line="18" column="40" selection-start-line="18" selection-start-column="40" selection-end-line="18" selection-end-column="40" />
+            <state vertical-scroll-proportion="-1.875">
+              <caret line="11" column="4" selection-start-line="11" selection-start-column="4" selection-end-line="11" selection-end-column="4" />
               <folding />
             </state>
           </provider>
@@ -101,9 +101,9 @@
         <option value="$USER_HOME$/Sites/mpclarkson-icon-scraper/tests/IconScraper/IconScraperTest.php" />
         <option value="$USER_HOME$/Sites/mpclarkson-icon-scraper/src/IconScraper/Icon.php" />
         <option value="$USER_HOME$/Sites/mpclarkson-icon-scraper/src/IconScraper/DataAccess.php" />
-        <option value="$USER_HOME$/Sites/mpclarkson-icon-scraper/src/IconScraper/Scraper.php" />
         <option value="$USER_HOME$/Sites/mpclarkson-icon-scraper/tests/IconScraper/ScraperTest.php" />
         <option value="$USER_HOME$/Sites/mpclarkson-icon-scraper/.travis.yml" />
+        <option value="$USER_HOME$/Sites/mpclarkson-icon-scraper/src/IconScraper/Scraper.php" />
         <option value="$USER_HOME$/Sites/mpclarkson-icon-scraper/README.md" />
       </list>
     </option>
@@ -440,24 +440,8 @@
     </entry>
     <entry file="file://$USER_HOME$/Sites/mpclarkson-icon-scraper/src/IconScraper/DataAccess.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-6.25">
-          <caret line="18" column="40" selection-start-line="18" selection-start-column="40" selection-end-line="18" selection-end-column="40" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/Sites/mpclarkson-icon-scraper/src/IconScraper/Scraper.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-5.1960783">
-          <caret line="89" column="26" selection-start-line="89" selection-start-column="26" selection-end-line="89" selection-end-column="26" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/Sites/mpclarkson-icon-scraper/tests/IconScraper/ScraperTest.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-9.041667">
-          <caret line="140" column="0" selection-start-line="140" selection-start-column="0" selection-end-line="156" selection-end-column="7" />
+        <state vertical-scroll-proportion="-1.875">
+          <caret line="11" column="4" selection-start-line="11" selection-start-column="4" selection-end-line="11" selection-end-column="4" />
           <folding />
         </state>
       </provider>
@@ -470,10 +454,26 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$USER_HOME$/Sites/mpclarkson-icon-scraper/src/IconScraper/Scraper.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-6.6666665">
+          <caret line="97" column="34" selection-start-line="97" selection-start-column="34" selection-end-line="97" selection-end-column="34" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Sites/mpclarkson-icon-scraper/tests/IconScraper/ScraperTest.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-9.041667">
+          <caret line="140" column="0" selection-start-line="140" selection-start-column="0" selection-end-line="156" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$USER_HOME$/Sites/mpclarkson-icon-scraper/README.md">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.24793388">
-          <caret line="8" column="21" selection-start-line="8" selection-start-column="21" selection-end-line="8" selection-end-column="21" />
+        <state vertical-scroll-proportion="0.15495868">
+          <caret line="5" column="0" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
           <folding />
         </state>
       </provider>

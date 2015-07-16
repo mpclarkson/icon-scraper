@@ -2,6 +2,7 @@ Get Apple Touch Icons and Favicon from a Website
 ==========================================
 
 [![Build Status](https://travis-ci.org/mpclarkson/icon-scraper.svg?branch=master)](https://travis-ci.org/mpclarkson/icon-scraper)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/mpclarkson/icon-scraper/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/mpclarkson/icon-scraper/?branch=master)
 
 Overview
 --------

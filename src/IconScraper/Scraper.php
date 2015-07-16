@@ -71,6 +71,7 @@ class Scraper
 
         // Discover real status by following redirects. 
         $loop = true;
+        $status = null;
         while ($loop && $max_loop-- > 0) {
 
             $headers = $this->dataAccess->retrieveHeader($url);
