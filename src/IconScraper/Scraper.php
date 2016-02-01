@@ -148,6 +148,7 @@ class Scraper
         $icons = [];
 
         $dom = new \DOMDocument();
+
         // Use error supression, because the HTML might be too malformed.
         if (@$dom->loadHTML($head)) {
             $links = $dom->getElementsByTagName('link');
@@ -165,19 +166,21 @@ class Scraper
 
                     $size = $link->hasAttribute('sizes') ? $link->getAttribute('sizes') : [];
 
-                    switch (strtolower($attribute)) {
+                    $type = false;
+
+                    switch(strtolower($attribute)) {
                         case Icon::APPLE_TOUCH:
                             $type = Icon::APPLE_TOUCH;
                             $size = !is_array($size) ? explode('x', $size) : $size;
                             break;
                         default:
-                            if (strpos($link->getAttribute('href'), 'icon') !== FALSE) {
+                            if(strpos($link->getAttribute('href'), 'icon') !== FALSE) {
                                 $type = Icon::FAVICON;
                                 $size = [];
                             }
                     };
 
-                    if (isset($type) && filter_var($href, FILTER_VALIDATE_URL)) {
+                    if(!empty($type) && filter_var($href, FILTER_VALIDATE_URL)) {
                         $icons[] = new Icon($type, $href, $size);
                     }
                 }

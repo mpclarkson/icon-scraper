@@ -37,5 +37,4 @@
     <resource url="http://opengraphprotocol.org/schema/" location="" />
     <resource url="http://www.facebook.com/2008/fbml" location="" />
   </component>
-  <component name="ProjectRootManager" version="2" />
 </project>

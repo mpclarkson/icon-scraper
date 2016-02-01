@@ -14,7 +14,7 @@ class ScraperTest extends \PHPUnit_Framework_TestCase {
         $this->RESOURCE_FAV_ICO = __DIR__ . '/default.ico';
     }
 
-    /**bin/phpunit -c
+    /**
      * @covers Scraper::__construct
     * @uses Scraper
     */
