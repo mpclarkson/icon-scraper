@@ -6,3 +6,4 @@ index.php
 ### Composer ###
 composer.phar
 vendor/
+.idea/
