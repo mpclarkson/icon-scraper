@@ -72,7 +72,7 @@ class Scraper
 
         $max_loop = 5;
 
-        // Discover real status by following redirects. 
+        // Discover real status by following redirects.
         $loop = true;
         $status = null;
         while ($loop && $max_loop-- > 0) {
@@ -165,13 +165,13 @@ class Scraper
                     }
 
                     $size = $link->hasAttribute('sizes') ? $link->getAttribute('sizes') : [];
+                    $size = !is_array($size) ? explode('x', $size) : $size;
 
                     $type = false;
 
                     switch(strtolower($attribute)) {
                         case Icon::APPLE_TOUCH:
                             $type = Icon::APPLE_TOUCH;
-                            $size = !is_array($size) ? explode('x', $size) : $size;
                             break;
                         default:
                             if(strpos($link->getAttribute('href'), 'icon') !== FALSE) {
