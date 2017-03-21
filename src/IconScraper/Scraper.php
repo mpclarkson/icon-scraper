@@ -64,41 +64,32 @@ class Scraper
         return $return;
     }
 
-    public function info($url)
-    {
+   public function info($url) {
         if (empty($url) || $url === false) {
             return false;
         }
 
-        $max_loop = 5;
+        $headers = $this->dataAccess->retrieveHeader($url);
 
-        // Discover real status by following redirects.
-        $loop = true;
-        $status = null;
-        while ($loop && $max_loop-- > 0) {
+        // leaves only numeric keys
+        $status_lines = array_filter($headers, function ($key) {
+            return is_int($key);
+        }, ARRAY_FILTER_USE_KEY);
 
-            $headers = $this->dataAccess->retrieveHeader($url);
+        // uses last returned status line header
+        $exploded = explode(' ', end($status_lines));
 
-            $exploded = explode(' ', $headers[0]);
-
-            if (!array_key_exists(1, $exploded)) {
-                return false;
-            }
-
-            list(,$status) = $exploded;
-
-            switch ($status) {
-                case '301':
-                case '302':
-                    $url = $headers['Location'];
-                    break;
-                default:
-                    $loop = false;
-                    break;
-            }
+        if (! array_key_exists(1, $exploded)) {
+            return false;
         }
 
-        return array('status' => $status, 'url' => $url);
+        list(, $status) = $exploded;
+
+        if (isset($headers['location'])) {
+            $url = $headers['location'];
+        }
+
+        return ['status' => $status, 'url' => $url];
     }
 
     /**

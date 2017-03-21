@@ -16,8 +16,23 @@ class DataAccess {
 	
     public function retrieveHeader($url) {
         $this->setContext();
-        return @get_headers($url, TRUE);
+
+        // get_headers already follows redirects and stacks headers up in array
+        $headers = @get_headers($url, TRUE);
+        $headers = array_change_key_case($headers);
+
+        // if there were multiple redirects flatten down the location header
+        if (isset($headers['location']) && is_array($headers['location'])) {
+            $headers['location'] = array_filter($headers['location'], function ($header) {
+                return strpos($header, '://') !== false; // leave only absolute urls
+            });
+
+            $headers['location'] = end($headers['location']);
+        }
+
+        return $headers;
     }
+    
 	
     public function saveCache($file, $data) {
         file_put_contents($file, $data);
