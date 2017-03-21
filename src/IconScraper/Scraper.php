@@ -90,7 +90,7 @@ class Scraper
             switch ($status) {
                 case '301':
                 case '302':
-                    $url = $headers['Location'];
+                    $url = $headers['location'];
                     break;
                 default:
                     $loop = false;
