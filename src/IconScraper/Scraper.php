@@ -165,7 +165,7 @@ class Scraper
                             $type = Icon::APPLE_TOUCH;
                             break;
                         default:
-                            if(strpos($link->getAttribute('href'), 'icon') !== FALSE) {
+                            if(strpos(strtolower($attribute), 'icon') !== FALSE) {
                                 $type = Icon::FAVICON;
                                 $size = [];
                             }
