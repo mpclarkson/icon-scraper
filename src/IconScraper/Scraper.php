@@ -152,7 +152,7 @@ class Scraper
 
                     // Make sure the href is an absolute URL.
                     if ($href && filter_var($href, FILTER_VALIDATE_URL) === false) {
-                        $href = $url . '/' . $href; //Todo: Improve this
+                        $href = $url . '/' . ltrim($href, '/'); //Todo: Improve this
                     }
 
                     $size = $link->hasAttribute('sizes') ? $link->getAttribute('sizes') : [];
